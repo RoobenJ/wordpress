@@ -96,12 +96,15 @@ h6, .h6 {
 /*
  * Blog name and description
  */
-
+.blog-sidebar{
+  margin-left:40px;
+}
 .blog-header {
   padding-bottom: 1.25rem;
   margin-bottom: 2rem;
   border-bottom: .05rem solid #eee;
   padding-top:40px;
+  padding-left:40px;
 }
 .blog-title {
   margin-bottom: 0;
@@ -198,7 +201,7 @@ h6, .h6 {
   border-bottom:#ccc 1px solid;
   margin-bottom:30px;
   color:white;
-  background:url('../img/showcase.jpg') no-repeat center center;
+  background:#333 url('../img/showcase.jpg') no-repeat center center;
 }
 
 .showcase h1{
@@ -289,4 +292,15 @@ h6, .h6 {
   padding:4px;
   border:#ccc solid 1px;
   margin-bottom:15px;
+}
+
+.post-gallery{
+  background:#333;
+  color:#fff;
+  padding:10px;
+  text-align:center;
+}
+
+.post-gallery h2{
+  color:#fff;
 }
