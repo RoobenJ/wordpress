@@ -17,7 +17,7 @@
               
             </h2>
             <p class="blog-post-meta">
-            <?php the_time('F j, Y g:i a'); ?>
+            <?php the_time('F j, Y H:i'); ?>
              by <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
              <?php the_author(); ?>
              </a>
@@ -33,12 +33,6 @@
             <?php else : ?>
             <p><?php __('No Posts Found'); ?></p>
           <?php endif; ?>
-
-          <nav class="blog-pagination">
-            <a class="btn btn-outline-primary" href="#">Older</a>
-            <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-          </nav>
-
         </div><!-- /.blog-main -->
 
 <?php get_footer(); ?>

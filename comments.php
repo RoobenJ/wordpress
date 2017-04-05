@@ -1,6 +1,6 @@
 <div class="comments">
-<h2>Comments</h2>
-<?php $args = array(
+  <h2>Comments</h2>
+  <?php $args = array(
 	'walker'            => null,
 	'max_depth'         => '',
 	'style'             => 'ul',
@@ -10,7 +10,7 @@
 	'reply_text'        => 'Reply',
 	'page'              => '',
 	'per_page'          => '',
-	'avatar_size'       => 32,
+	'avatar_size'       => 80,
 	'reverse_top_level' => null,
 	'reverse_children'  => '',
 	'format'            => 'html5', // or 'xhtml' if no 'HTML5' theme support

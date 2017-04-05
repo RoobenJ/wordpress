@@ -17,7 +17,7 @@
               
             </h2>
             <p class="blog-post-meta">
-            <?php the_time('F j, Y g:i a'); ?>
+            <?php the_time('F j, Y H:i'); ?>
              by <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
              <?php the_author(); ?>
              </a>

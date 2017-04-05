@@ -10,7 +10,7 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php bloginfo('template_url'); ?>/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
     <link href="<?php bloginfo('stylesheet_url') ?>" rel="stylesheet">
