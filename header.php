@@ -10,7 +10,7 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="<?php bloginfo('stylesheet_url') ?>" rel="stylesheet">
@@ -18,30 +18,20 @@
   </head>
 
   <body>
-
     <div class="blog-masthead">
       <div class="container">
-        <nav class="nav blog-nav">
-           <?php
-            wp_nav_menu( array(
-                'menu'              => 'primary',
-                'theme_location'    => 'primary',
-                'depth'             => 2,
-                'container'         => 'div',
-                'container_class'   => 'collapse navbar-collapse',
-                'container_id'      => 'bs-example-navbar-collapse-1',
-                'menu_class'        => 'nav navbar-nav',
-                'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-                'walker'            => new WP_Bootstrap_Navwalker())
-            );
-        ?>
-        </nav>
+     <nav class="nav blog-nav">
+<?php bootstrap_nav(); ?>
+</nav>
       </div>
     </div>
 
 <div class="blog-header">
       <div class="container">
-        <h1 class="blog-title"><?php bloginfo('name'); ?></h1>
-        <p class="lead blog-description"><?php bloginfo('description'); ?></p>
+        <h1 class="blog-title"><?php if ( function_exists( 'the_custom_logo' ) ) {
+        the_custom_logo();
+        }
+        ?><?php bloginfo('name'); ?></h1><p class="lead blog-description"><?php bloginfo('description'); ?></p>
+        
       </div>
     </div>

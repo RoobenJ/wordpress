@@ -10,7 +10,7 @@
     </title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="<?php bloginfo('stylesheet_url') ?>" rel="stylesheet">
@@ -18,7 +18,8 @@
   <?php wp_head(); ?>
   <style>
   	.showcase{
-  		background:url(<?php echo get_theme_mod('showcase_image', get_bloginfo('template_url').'/img/showcase.jpg') ?>) no-repeat center center;
+  		background:url(<?php echo get_theme_mod('showcase_image', get_bloginfo('template_url').'/img/showcase.jpg') ?>) no-repeat center;
+  		width:100%;
   	}  	
   </style>
   </head>
@@ -27,21 +28,9 @@
 
     <div class="blog-masthead">
       <div class="container">
-        <nav class="nav blog-nav">
-           <?php
-            wp_nav_menu( array(
-                'menu'              => 'primary',
-                'theme_location'    => 'primary',
-                'depth'             => 2,
-                'container'         => 'div',
-                'container_class'   => 'collapse navbar-collapse',
-                'container_id'      => 'bs-example-navbar-collapse-1',
-                'menu_class'        => 'nav navbar-nav',
-                'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-                'walker'            => new WP_Bootstrap_Navwalker())
-            );
-        ?>
-        </nav>
+      <nav class="nav blog-nav">
+<?php wp_nav_menu(); ?>
+</nav>
       </div>
     </div>
 	<section class="showcase">
@@ -77,16 +66,18 @@
    <footer class="blog-footer">
       <p>&copy; <?php echo Date('Y'); ?> - <?php bloginfo('name'); ?></p>
       <p>
+      <a href="http://localhost/wordpress/wp-admin/">Wordpress</a>
+      ||
         <a href="#">Back to top</a>
       </p>
     </footer>
     <?php wp_footer(); ?>
 
 
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="<?php bloginfo('template_url');?>/dropdown.js"></script>
+
   </body>
 </html>
