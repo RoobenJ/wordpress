@@ -18,20 +18,24 @@
   </head>
 
   <body>
-    <div class="blog-masthead">
-      <div class="container">
-     <nav class="nav blog-nav">
-<?php bootstrap_nav(); ?>
+    <nav class="navbar navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <hr class="hidden-lg-up">
+        <?php
+        wp_nav_menu( array(
+            'theme_location' => 'header-menu',
+            'container'      => false,
+            'menu_class'     => 'nav navbar-nav',
+            'fallback_cb'    => '__return_false',
+            'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'depth'          => 2,
+            'walker'         => new wp_bootstrap_navwalker()
+        ) );
+        ?>
+    </div>
 </nav>
-      </div>
-    </div>
 
-<div class="blog-header">
-      <div class="container">
-        <h1 class="blog-title"><?php if ( function_exists( 'the_custom_logo' ) ) {
-        the_custom_logo();
-        }
-        ?><?php bloginfo('name'); ?></h1><p class="lead blog-description"><?php bloginfo('description'); ?></p>
-        
-      </div>
-    </div>

@@ -16,26 +16,14 @@ function wpb_theme_setup (){
 
 add_action('after_setup_theme', 'wpb_theme_setup');
 
+
+// Register Menu 
+
 function register_header_menu() {
   register_nav_menu('header-menu',__( 'Header Menu' ));
 }
+
 add_action( 'init', 'register_header_menu' );
-
-function bootstrap_nav()
-{
-  wp_nav_menu( array(
-                'menu'              => 'primary',
-               'theme_location'    => 'primary',
-               'depth'             => 2,
-               'container'         => 'div',
-               'container_class'   => 'collapse navbar-collapse',
-       'container_id'      => 'bs-example-navbar-collapse-1',
-                'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
-                'walker'            => new WP_Bootstrap_Navwalker())
-    );
-}
-
-
 
 // Excerpt Length Control
 
@@ -47,6 +35,7 @@ add_filter('excerpt_length', 'set_excerpt_length');
 
 
 // Widget Locations
+
 function wpb_init_widgets($id){
 	register_sidebar(array(
 		'name' => 'Sidebar',
@@ -85,7 +74,6 @@ function wpb_init_widgets($id){
   ));
 }
 
-
 add_action('widgets_init', 'wpb_init_widgets');
 
 // Add Custom Logo
@@ -107,4 +95,5 @@ add_theme_support( 'custom-logo' );
 
 
 // Customizer File
+
 require get_template_directory(). '/inc/showcase.php';

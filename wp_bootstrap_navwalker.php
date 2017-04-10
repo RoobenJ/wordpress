@@ -9,99 +9,56 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 class wp_bootstrap_navwalker extends Walker_Nav_Menu {
-	/**
-	 * @see Walker::start_lvl()
-	 * @since 3.0.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int $depth Depth of page. Used for padding.
-	 */
-	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
-		$output .= "\n$indent<ul role=\"menu\" class=\" dropdown-menu\">\n";
-	}
-	/**
-	 * @see Walker::start_el()
-	 * @since 3.0.0
-	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param object $item Menu item data object.
-	 * @param int $depth Depth of menu item. Used for padding.
-	 * @param int $current_page Menu item ID.
-	 * @param object $args
-	 */
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
-		/**
-		 * Dividers, Headers or Disabled
-		 * =============================
-		 * Determine whether the item is a Divider, Header, Disabled or regular
-		 * menu item. To prevent errors we use the strcasecmp() function to so a
-		 * comparison that is not case sensitive. The strcasecmp() function returns
-		 * a 0 if the strings are equal.
-		 */
-		if ( strcasecmp( $item->attr_title, 'divider' ) == 0 && $depth === 1 ) {
-			$output .= $indent . '<li role="presentation" class="divider">';
-		} else if ( strcasecmp( $item->title, 'divider') == 0 && $depth === 1 ) {
-			$output .= $indent . '<li role="presentation" class="divider">';
-		} else if ( strcasecmp( $item->attr_title, 'dropdown-header') == 0 && $depth === 1 ) {
-			$output .= $indent . '<li role="presentation" class="dropdown-header">' . esc_attr( $item->title );
-		} else if ( strcasecmp($item->attr_title, 'disabled' ) == 0 ) {
-			$output .= $indent . '<li role="presentation" class="disabled"><a href="#">' . esc_attr( $item->title ) . '</a>';
-		} else {
-			$class_names = $value = '';
-			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
-			$classes[] = 'menu-item-' . $item->ID;
-			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
-			if ( $args->has_children )
-				$class_names .= ' dropdown';
-			if ( in_array( 'current-menu-item', $classes ) )
-				$class_names .= ' active';
-			$class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
-			$id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
-			$id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
-			$output .= $indent . '<li' . $id . $value . $class_names .'>';
-			$atts = array();
-			$atts['title']  = ! empty( $item->title )	? $item->title	: '';
-			$atts['target'] = ! empty( $item->target )	? $item->target	: '';
-			$atts['rel']    = ! empty( $item->xfn )		? $item->xfn	: '';
-			// If item has_children add atts to a.
-   			if ( $args->has_children && $depth === 0 ) {
-    		$atts['data-target']    = '#';
-    		// use this if you want to be able to toggle menu $atts['data-toggle'] = 'dropdown';
-    		$atts['data-hover']  = 'dropdown';
-    		$atts['data-delay']  = '100';
-    		$atts['class']   = 'dropdown-toggle';
-    		$atts['href']    = ! empty( $item->url ) ? $item->url : '';
-   			} else {
-    		$atts['href'] = ! empty( $item->url ) ? $item->url : '';
-  			}
-			$atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
-			$attributes = '';
-			foreach ( $atts as $attr => $value ) {
-				if ( ! empty( $value ) ) {
-					$value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
-					$attributes .= ' ' . $attr . '="' . $value . '"';
-				}
-			}
-			$item_output = $args->before;
-			/*
-			 * Glyphicons
-			 * ===========
-			 * Since the the menu item is NOT a Divider or Header we check the see
-			 * if there is a value in the attr_title property. If the attr_title
-			 * property is NOT null we apply it as the class name for the glyphicon.
-			 */
-			if ( ! empty( $item->attr_title ) )
-				$item_output .= '<a'. $attributes .'><span class="glyphicon ' . esc_attr( $item->attr_title ) . '"></span>&nbsp;';
-			else
-				$item_output .= '<a'. $attributes .'>';
-			$item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-			$item_output .= ( $args->has_children && 0 === $depth ) ? ' <span class="caret"></span></a>' : '</a>';
-			$item_output .= $args->after;
-			$output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
-		}
-	}
+    
+    function start_lvl( &$output, $depth = 0, $args = array() ){ // ul
+        $indent = str_repeat("\t",$depth); // indents the outputted HTML
+        $submenu = ($depth > 0) ? ' sub-menu' : '';
+        $output .= "\n$indent<ul class=\"dropdown-menu$submenu depth_$depth\">\n";
+    }
+  
+  function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ){ // li a span
+        
+    $indent = ( $depth ) ? str_repeat("\t",$depth) : '';
+    
+    $li_attributes = '';
+        $class_names = $value = '';
+    
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        
+        $classes[] = ($args->walker->has_children) ? 'dropdown' : '';
+        $classes[] = ($item->current || $item->current_item_anchestor) ? 'active' : '';
+        $classes[] = 'nav-item';
+        $classes[] = 'nav-item-' . $item->ID;
+        if( $depth && $args->walker->has_children ){
+            $classes[] = 'dropdown-menu';
+        }
+        
+        $class_names =  join(' ', apply_filters('nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+        $class_names = ' class="' . esc_attr($class_names) . '"';
+        
+        $id = apply_filters('nav_menu_item_id', 'menu-item-'.$item->ID, $item, $args);
+        $id = strlen( $id ) ? ' id="' . esc_attr( $id ) . '"' : '';
+        
+        $output .= $indent . '<li ' . $id . $value . $class_names . $li_attributes . '>';
+        
+        $attributes = ! empty( $item->attr_title ) ? ' title="' . esc_attr($item->attr_title) . '"' : '';
+        $attributes .= ! empty( $item->target ) ? ' target="' . esc_attr($item->target) . '"' : '';
+        $attributes .= ! empty( $item->xfn ) ? ' rel="' . esc_attr($item->xfn) . '"' : '';
+        $attributes .= ! empty( $item->url ) ? ' href="' . esc_attr($item->url) . '"' : '';
+        
+        $attributes .= ( $args->walker->has_children ) ? ' class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ' class="nav-link"';
+        
+        $item_output = $args->before;
+        $item_output .= ( $depth > 0 ) ? '<a class="dropdown-item"' . $attributes . '>' : '<a' . $attributes . '>';
+        $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+        $item_output .= '</a>';
+        $item_output .= $args->after;
+        
+        $output .= apply_filters ( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    
+    }
+    
+}
 	/**
 	 * Traverse elements to create list from elements.
 	 *
@@ -122,7 +79,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	 * @param string $output Passed by reference. Used to append additional content.
 	 * @return null Null on failure with no changes to parameters.
 	 */
-	public function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+	function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
         if ( ! $element )
             return;
         $id_field = $this->db_fields['id'];
@@ -142,7 +99,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	 * @param array $args passed from the wp_nav_menu function.
 	 *
 	 */
-	public static function fallback( $args ) {
+	function fallback( $args ) {
 		if ( current_user_can( 'manage_options' ) ) {
 			extract( $args );
 			$fb_output = null;
@@ -167,4 +124,3 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			echo $fb_output;
 		}
 	}
-}

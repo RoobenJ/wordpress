@@ -18,21 +18,33 @@
   <?php wp_head(); ?>
   <style>
   	.showcase{
-  		background:url(<?php echo get_theme_mod('showcase_image', get_bloginfo('template_url').'/img/showcase.jpg') ?>) no-repeat center;
-  		width:100%;
+  		background:url(<?php echo get_theme_mod('showcase_image', get_bloginfo('template_url').'/img/showcase.jpg') ?>) no-repeat center ;
   	}  	
   </style>
   </head>
 
   <body>
 
-    <div class="blog-masthead">
-      <div class="container">
-      <nav class="nav blog-nav">
-<?php wp_nav_menu(); ?>
-</nav>
-      </div>
+<nav class="navbar navbar-toggleable-md">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <hr class="hidden-lg-up">
+        <?php
+        wp_nav_menu( array(
+            'theme_location' => 'header-menu',
+            'container'      => false,
+            'menu_class'     => 'nav navbar-nav',
+            'fallback_cb'    => '__return_false',
+            'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+            'depth'          => 2,
+            'walker'         => new wp_bootstrap_navwalker()
+        ) );
+        ?>
     </div>
+</nav>
 	<section class="showcase">
 <div class="container">
 <h1><?php echo get_theme_mod('showcase_heading', 'Custom Bootstrap Wordpress Theme'); ?></h1>
@@ -41,7 +53,7 @@
 </div>
 </section>
 <section class="boxes">
-  <div class="container">
+  <div class="container2">
     <div class="row">
       <div class="col-md-4">
           <?php if(is_active_sidebar('box1')) : ?>
@@ -66,7 +78,7 @@
    <footer class="blog-footer">
       <p>&copy; <?php echo Date('Y'); ?> - <?php bloginfo('name'); ?></p>
       <p>
-      <a href="http://localhost/wordpress/wp-admin/">Wordpress</a>
+      <a href="http://localhost/wordpress/wp-admin/">Admin Login</a>
       ||
         <a href="#">Back to top</a>
       </p>
@@ -77,7 +89,6 @@
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<script src="<?php bloginfo('template_url');?>/dropdown.js"></script>
 
   </body>
 </html>
