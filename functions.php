@@ -96,4 +96,4 @@ add_theme_support( 'custom-logo' );
 
 // Customizer File
 
-require get_template_directory(). '/inc/showcase.php';
+require get_template_directory(). '/inc/customizer.php';
